@@ -1,4 +1,5 @@
 import 'package:chat_app1/helper/authenticate.dart';
+import 'package:chat_app1/views/chatrooms.dart';
 import 'package:chat_app1/views/sign_in.dart';
 import 'package:chat_app1/views/sign_up.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "OverpassRegular",
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:  Authenticate(),
+      home:  ChatRoom(),
       // userIsLoggedIn != null ?  userIsLoggedIn ? ChatRoom() : Authenticate()
       //     : Container(
       //   child: Center(
