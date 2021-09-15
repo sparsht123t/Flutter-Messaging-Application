@@ -1,8 +1,12 @@
+import 'package:chat_app1/services/auth.dart';
+import 'package:chat_app1/services/database.dart';
+import 'package:chat_app1/views/chatrooms.dart';
 import 'package:chat_app1/widget/widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
-   final Function toggleView;
+  final Function toggleView;
 
   SignIn(this.toggleView);
 
@@ -13,8 +17,35 @@ class SignIn extends StatefulWidget {
 final formKey = GlobalKey<FormState>();
 
 class _SignInState extends State<SignIn> {
+  bool isLoading = false;
+  AuthService authService = new AuthService();
   TextEditingController emailEditingController = new TextEditingController();
   TextEditingController passwordEditingController = new TextEditingController();
+  signIn() async {
+    if (formKey.currentState!.validate()) {
+      setState(() {
+        isLoading = true;
+      });
+
+      await authService
+          .signInWithEmailAndPassword(
+              emailEditingController.text, passwordEditingController.text)
+          .then((result) async {
+        if (result != null) {
+          QuerySnapshot userInfoSnapshot =
+              await DatabaseMethods().getUserInfo(emailEditingController.text);
+
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => ChatRoom()));
+        } else {
+          setState(() {
+            isLoading = false;
+            //show snackbar
+          });
+        }
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +115,7 @@ class _SignInState extends State<SignIn> {
             ),
             GestureDetector(
               onTap: () {
-                // signIn();
+                signIn();
               },
               child: Container(
                 padding: EdgeInsets.symmetric(vertical: 16),
