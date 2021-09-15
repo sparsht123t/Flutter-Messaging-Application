@@ -1,6 +1,12 @@
+import 'package:chat_app1/helper/authenticate.dart';
+import 'package:chat_app1/views/sign_in.dart';
+import 'package:chat_app1/views/sign_up.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -9,30 +15,22 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(    primarySwatch: Colors.blue,
+      title: 'FlutterChat',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: Color(0xff145C9E),
+        scaffoldBackgroundColor: Color(0xff1F1F1F),
+        accentColor: Color(0xff007EF4),
+        fontFamily: "OverpassRegular",
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
- 
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  
-
-  @override
-  Widget build(BuildContext context) {
+      home:  Authenticate(),
+      // userIsLoggedIn != null ?  userIsLoggedIn ? ChatRoom() : Authenticate()
+      //     : Container(
+      //   child: Center(
+      //     child: Authenticate(),
+    );      
    
-    return Scaffold();
   }
 }
+
