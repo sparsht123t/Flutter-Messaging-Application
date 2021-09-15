@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "OverpassRegular",
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home:  ChatRoom(),
+      home:  Authenticate(),
       // userIsLoggedIn != null ?  userIsLoggedIn ? ChatRoom() : Authenticate()
       //     : Container(
       //   child: Center(
