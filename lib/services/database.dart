@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DatabaseMethods {
-  
   Future<void> addUserInfo(userData) async {
     FirebaseFirestore.instance
         .collection("users")
@@ -28,6 +27,16 @@ class DatabaseMethods {
         .get()
         .catchError((onError) {
       print(onError.toString());
+    });
+  }
+
+  createChatRoom(String chatRoomId, Map<String, dynamic> chatRoomMap) {
+    FirebaseFirestore.instance
+        .collection("chatRoom")
+        .doc(chatRoomId)
+        .set(chatRoomMap)
+        .catchError((e) {
+      print(e);
     });
   }
 }

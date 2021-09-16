@@ -1,4 +1,6 @@
+import 'package:chat_app1/helper/constants.dart';
 import 'package:chat_app1/services/database.dart';
+import 'package:chat_app1/views/conversation_screen.dart';
 import 'package:chat_app1/widget/widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class _SearchState extends State<Search> {
           .getUserByName(searchEditingController.text)
           .then((snapshot) {
         searchResultSnapshot = snapshot;
-        print(snapshot);
+
         setState(() {
           isLoading = false;
           haveUserSearched = true;
@@ -36,10 +38,9 @@ class _SearchState extends State<Search> {
     }
   }
 
-  
-
   userList() {
-    return haveUserSearched
+    return haveUserSearched &&
+            (Constants.myName != searchEditingController.text)
         ? ListView.builder(
             shrinkWrap: true,
             itemCount: searchResultSnapshot!.docs.length,
@@ -47,11 +48,38 @@ class _SearchState extends State<Search> {
               return userTile(
                 searchResultSnapshot!.docs[index].get("userName"),
                 searchResultSnapshot!.docs[index].get("userEmail"),
-                
               );
             },
           )
         : Container();
+  }
+
+  /// 1.create a chatroom, send user to the chatroom, other userdetails
+  sendMessage(String userName) async {
+    List<String> users = [
+      Constants.myName,
+      userName,
+    ];
+
+    String chatRoomId = getChatRoomId(Constants.myName, userName);
+
+    Map<String, dynamic> chatRoom = {
+      "users": users,
+      "chatRoomId": chatRoomId,
+    };
+
+    print(chatRoom);
+
+     databaseMethods.createChatRoom(chatRoomId, chatRoom);
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ConversationScreen(
+          chatRoomId: chatRoomId,
+        ),
+      ),
+    );
   }
 
   Widget userTile(String userName, String userEmail) {
@@ -75,7 +103,7 @@ class _SearchState extends State<Search> {
           Spacer(),
           GestureDetector(
             onTap: () {
-              // sendMessage(userName);
+              sendMessage(userName);
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -149,5 +177,13 @@ class _SearchState extends State<Search> {
         ),
       ),
     );
+  }
+}
+
+getChatRoomId(String a, String b) {
+  if (a.substring(0, 1).codeUnitAt(0) > b.substring(0, 1).codeUnitAt(0)) {
+    return "$b\_$a";
+  } else {
+    return "$a\_$b";
   }
 }
