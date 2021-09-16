@@ -36,6 +36,8 @@ class _SearchState extends State<Search> {
     }
   }
 
+  
+
   userList() {
     return haveUserSearched
         ? ListView.builder(
@@ -45,7 +47,7 @@ class _SearchState extends State<Search> {
               return userTile(
                 searchResultSnapshot!.docs[index].get("userName"),
                 searchResultSnapshot!.docs[index].get("userEmail"),
-                // searchResultSnapshot!.docs[index].data().toString()
+                
               );
             },
           )
