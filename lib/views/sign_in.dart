@@ -1,6 +1,9 @@
+import 'package:chat_app1/helper/helperfunction.dart';
 import 'package:chat_app1/services/auth.dart';
+
 import 'package:chat_app1/views/chatrooms.dart';
 import 'package:chat_app1/widget/widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -15,10 +18,10 @@ class SignIn extends StatefulWidget {
 final formKey = GlobalKey<FormState>();
 
 class _SignInState extends State<SignIn> {
+  bool isLoading = false;
+  AuthService authService = new AuthService();
   TextEditingController emailEditingController = new TextEditingController();
   TextEditingController passwordEditingController = new TextEditingController();
-  AuthService authService = new AuthService();
-  bool isLoading = false;
   signIn() async {
     if (formKey.currentState!.validate()) {
       setState(() {
@@ -30,12 +33,19 @@ class _SignInState extends State<SignIn> {
               emailEditingController.text, passwordEditingController.text)
           .then((result) async {
         if (result != null) {
+// This means it would have been signed up thats why we are able to fetch data  //
+          // QuerySnapshot userInfoSnapshot =
+          //     await DatabaseMethods().getUserInfo(emailEditingController.text);
+          // // saving Bool TRUE we had been logged in successfully
+          // HelperFunctions.saveUserLoggedInSharedPreference(true);
+          // // now save other data localy
+          // HelperFunctions.saveUserNameSharedPreference(
+          //     userInfoSnapshot.docs[0].get("userName"));
+          // HelperFunctions.saveUserEmailSharedPreference(
+              // userInfoSnapshot.docs[0].get("userEmail"));
+
           Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ChatRoom(),
-            ),
-          );
+              context, MaterialPageRoute(builder: (context) => ChatRoom()));
         } else {
           setState(() {
             isLoading = false;
@@ -55,7 +65,7 @@ class _SignInState extends State<SignIn> {
         padding: EdgeInsets.symmetric(horizontal: 24),
         child: Column(
           children: [
-            Spacer(),
+            // Spacer(),
             Form(
               key: formKey,
               child: Column(
@@ -137,23 +147,26 @@ class _SignInState extends State<SignIn> {
             SizedBox(
               height: 16,
             ),
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 16),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30), color: Colors.white),
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                "Sign In with Google",
-                style: TextStyle(
-                  fontSize: 17,
-                  // color: CustomTheme.textColor
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
+            //TODO:    googlesignin //
+            //
+            //
+            //            // Container(
+            //   padding: EdgeInsets.symmetric(vertical: 16),
+            //   decoration: BoxDecoration(
+            //       borderRadius: BorderRadius.circular(30), color: Colors.white),
+            //   width: MediaQuery.of(context).size.width,
+            //   child: Text(
+            //     "Sign In with Google",
+            //     style: TextStyle(
+            //       fontSize: 17,
+            //       // color: CustomTheme.textColor
+            //     ),
+            //     textAlign: TextAlign.center,
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 16,
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

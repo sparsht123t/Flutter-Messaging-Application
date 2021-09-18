@@ -1,4 +1,6 @@
+import 'package:chat_app1/helper/helperfunction.dart';
 import 'package:chat_app1/services/auth.dart';
+
 import 'package:chat_app1/views/chatrooms.dart';
 import 'package:chat_app1/widget/widget.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,7 @@ class _SignUpState extends State<SignUp> {
   TextEditingController passwordEditingController = new TextEditingController();
   TextEditingController usernameEditingController = new TextEditingController();
   AuthService authService = new AuthService();
+  
 
   singUp() async {
     if (formKey.currentState!.validate()) {
@@ -30,10 +33,21 @@ class _SignUpState extends State<SignUp> {
               emailEditingController.text, passwordEditingController.text)
           .then((result) {
         if (result != null) {
-          // Map<String,String> userDataMap = {
-          //   "userName" : usernameEditingController.text,
-          //   "userEmail" : emailEditingController.text
-          // };
+          Map<String, String> userDataMap = {
+            "userName": usernameEditingController.text,
+            "userEmail": emailEditingController.text
+          };
+          // print(userDataMap.values);
+
+          // databaseMethods.addUserInfo(userDataMap);
+
+          // signedup successfully as the credentials are saved in firbase
+
+          HelperFunctions.saveUserLoggedInSharedPreference(true);
+          HelperFunctions.saveUserNameSharedPreference(
+              usernameEditingController.text);
+          HelperFunctions.saveUserEmailSharedPreference(
+              emailEditingController.text);
 
           Navigator.pushReplacement(
               context, MaterialPageRoute(builder: (context) => ChatRoom()));
