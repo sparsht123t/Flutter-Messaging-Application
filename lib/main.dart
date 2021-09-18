@@ -1,5 +1,6 @@
 import 'package:chat_app1/helper/authenticate.dart';
 import 'package:chat_app1/helper/helperfunction.dart';
+
 import 'package:chat_app1/views/chatrooms.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   bool? userIsLoggedIn;
-  
+
   @override
   void initState() {
     getLoggedInState();
@@ -26,9 +27,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   getLoggedInState() async {
-    await HelperFunctions.getUserLoggedInSharedPreference().then((value){
+    await HelperFunctions.getUserLoggedInSharedPreference().then((value) {
       setState(() {
-        userIsLoggedIn  = value;
+        userIsLoggedIn = value;
       });
     });
   }

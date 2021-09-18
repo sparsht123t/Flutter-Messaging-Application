@@ -39,4 +39,35 @@ class DatabaseMethods {
       print(e);
     });
   }
+
+  Future<void> addMessage(String chatRoomId, chatMessageData) async {
+    FirebaseFirestore.instance
+        .collection("chatRoom")
+        .doc(chatRoomId)
+        .collection("chats")
+        .add(chatMessageData)
+        .catchError(
+      (e) {
+        print(
+          e.toString(),
+        );
+      },
+    );
+  }
+
+  getChats(String chatRoomId) {
+    return FirebaseFirestore.instance
+        .collection("chatRoom")
+        .doc(chatRoomId)
+        .collection("chats")
+        .orderBy('time')
+        .snapshots();
+  }
+
+  getChatRoom(String userName) {
+    return FirebaseFirestore.instance
+        .collection("chatRoom")
+        .where("users", arrayContains: userName)
+        .snapshots();
+  }
 }
