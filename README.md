@@ -1,6 +1,13 @@
-# Flutter-Messaging-Application
+# Flutter-FIrebase-FIrestore-StreamBuilder
 
 
+This is a messenger app where you can msg to registered usernames
+
+
+✅  Stream Builder\
+✅  Firebase Firestore\
+✅  VelocityX\
+✅  HeroAnimation\
 
 
 
