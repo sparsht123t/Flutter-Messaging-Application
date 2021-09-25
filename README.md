@@ -1,9 +1,11 @@
 # RealTime-Flutter-FIrebase-FIrestore-StreamBuilder
 
 
-This is a messenger app where you can msg to registered usernames
+This is a messenger app where user can message to any registered user with its username.
+Signed In user need not to manually logged in to the app as saved prefference functionality handles that task,
+User will be logged in directly when it opens up the app. 
 
-
+✅  Saved Preferrence\
 ✅  Stream Builder\
 ✅  Firebase Firestore\
 ✅  VelocityX\
