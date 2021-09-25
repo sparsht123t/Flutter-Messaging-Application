@@ -1,4 +1,4 @@
-# Flutter-FIrebase-FIrestore-StreamBuilder
+# RealTime-Flutter-FIrebase-FIrestore-StreamBuilder
 
 
 This is a messenger app where you can msg to registered usernames
@@ -8,6 +8,7 @@ This is a messenger app where you can msg to registered usernames
 ✅  Firebase Firestore\
 ✅  VelocityX\
 ✅  HeroAnimation\
+✅  RealTime Chatting
 
 
 
